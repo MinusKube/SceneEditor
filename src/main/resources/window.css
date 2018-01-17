@@ -1,0 +1,38 @@
+.pane {
+    -fx-background: #333;
+    -fx-background-color: #333;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.split-pane .split-pane-divider {
+    -fx-background-color: #222;
+}
+
+.menu-bar { -fx-background-color: #222; }
+.menu .label { -fx-text-fill: #AAA; }
+.menu:hover, .menu:showing { -fx-background-color: #111; }
+
+.menu-item {
+    -fx-min-width: 330px;
+    -fx-pref-width: 330px;
+
+    -fx-background-color: #222;
+    -fx-border-width: 0;
+}
+
+.menu-item:hover {
+    -fx-background-color: #2A2A2A;
+}
+
+.menu-item > .label {
+    -fx-padding: 0 120px 0 0;
+}
+
+.menu-item .accelerator-text {
+    -fx-text-fill: #777;
+}
+
+.context-menu {
+    -fx-background-color: #222;
+}

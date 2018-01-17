@@ -1,0 +1,14 @@
+group 'fr.minuskube'
+version '1.0.0'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "com.jfoenix:jfoenix:9.0.1"
+}

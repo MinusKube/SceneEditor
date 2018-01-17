@@ -1,0 +1,22 @@
+<?import fr.minuskube.editor.control.IntegerTextField?>
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<DialogPane fx:controller="fr.minuskube.editor.dialog.NewSceneDialog$Controller" xmlns:fx="http://javafx.com/fxml"
+            styleClass="pane">
+
+    <ButtonType fx:constant="CANCEL" />
+    <ButtonType fx:constant="OK" />
+
+    <content>
+        <VBox VBox.vgrow="ALWAYS" styleClass="pane">
+            <Label text="Scene Width" styleClass="field-label" />
+            <IntegerTextField text="1280" fx:id="widthField" />
+
+            <Label text="Scene Height" styleClass="field-label" />
+            <IntegerTextField text="720" fx:id="heightField" />
+        </VBox>
+    </content>
+
+</DialogPane>
