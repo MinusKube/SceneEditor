@@ -152,8 +152,14 @@ public class Scene {
                     context.clip();
                 }
 
-                /*scene.getObjects().forEach(object ->
-                        context.drawImage(object.getImage(), object.getX(), object.getY()));*/
+                scene.getObjects().forEach(object -> {
+                    context.save();
+                    context.translate(object.getX(), object.getY());
+
+                    object.draw(context);
+
+                    context.restore();
+                });
 
                 context.restore();
 
@@ -177,12 +183,11 @@ public class Scene {
             setEventHandler(ScrollEvent.SCROLL, event -> {
                 double deltaY = event.getDeltaY() / 500;
 
-                if(deltaY < 0 && scene.getZoom() <= 0.1)
-                    return;
-                if(deltaY > 0 && scene.getZoom() >= 5)
-                    return;
+                double zoom = scene.getZoom() + deltaY;
+                zoom = Math.max(zoom, 0.1);
+                zoom = Math.min(zoom, 5);
 
-                scene.setZoom(scene.getZoom() + deltaY);
+                scene.setZoom(zoom);
 
                 redraw();
             });

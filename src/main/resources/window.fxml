@@ -5,6 +5,8 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.VBox?>
+<?import fr.minuskube.editor.scene.Scene.Canvas?>
+
 <VBox fx:controller="fr.minuskube.editor.Controller" xmlns:fx="http://javafx.com/fxml"
       alignment="center" styleClass="pane" >
 

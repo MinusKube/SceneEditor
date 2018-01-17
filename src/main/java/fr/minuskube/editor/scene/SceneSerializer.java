@@ -1,12 +1,25 @@
 package fr.minuskube.editor.scene;
 
+import fr.minuskube.editor.scene.object.SceneImage;
+import fr.minuskube.editor.scene.object.SceneObject;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class SceneSerializer {
 
+    // XXX: This class is temporary! (Yes it's ugly)
+
     public static void save(File file, Scene scene) {
-        /*try(FileOutputStream fileOut = new FileOutputStream(file);
+        try(FileOutputStream fileOut = new FileOutputStream(file);
             DataOutputStream out = new DataOutputStream(fileOut)) {
+
+            out.writeInt(scene.getWidth());
+            out.writeInt(scene.getHeight());
 
             out.writeInt(scene.getScrollX());
             out.writeInt(scene.getScrollY());
@@ -16,16 +29,21 @@ public class SceneSerializer {
             for(SceneObject object : scene.getObjects()) {
                 out.writeInt(object.getX());
                 out.writeInt(object.getY());
-                out.writeUTF(object.getSource().getAbsolutePath());
+
+                if(object instanceof SceneImage)
+                    out.writeUTF(((SceneImage) object).getSource().getAbsolutePath());
             }
         } catch(IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     public static void load(File file, Scene scene) {
-        /*try(FileInputStream fileIn = new FileInputStream(file);
-            DataInputStream in = new DataInputStream(fileIn)) {
+        try(FileInputStream fileIn = new FileInputStream(file);
+             DataInputStream in = new DataInputStream(fileIn)) {
+
+            scene.setWidth(in.readInt());
+            scene.setHeight(in.readInt());
 
             scene.setScrollX(in.readInt());
             scene.setScrollY(in.readInt());
@@ -36,7 +54,7 @@ public class SceneSerializer {
                 int y = in.readInt();
                 File source = new File(in.readUTF());
 
-                SceneObject object = new SceneObject(source);
+                SceneImage object = new SceneImage(source);
                 object.setX(x);
                 object.setY(y);
 
@@ -44,7 +62,7 @@ public class SceneSerializer {
             }
         } catch(IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
 }
