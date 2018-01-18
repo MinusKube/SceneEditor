@@ -1,6 +1,7 @@
 package fr.minuskube.editor;
 
 import fr.minuskube.editor.dialog.NewSceneDialog;
+import fr.minuskube.editor.layers.LayersPane;
 import fr.minuskube.editor.properties.PropertiesPane;
 import fr.minuskube.editor.scene.Scene;
 import fr.minuskube.editor.scene.SceneSerializer;
@@ -26,6 +27,7 @@ public class Controller {
     @FXML private MenuItem menuFileImport;
     @FXML private MenuItem menuFileExit;
 
+    @FXML private LayersPane layersPane;
     @FXML private PropertiesPane propertiesPane;
     @FXML private Scene.Canvas sceneCanvas;
 
@@ -115,6 +117,7 @@ public class Controller {
 
         menuFileExit.setOnAction(event -> Platform.exit());
 
+        layersPane.init(editor);
         propertiesPane.init(editor);
 
         editor.getScene().getObjects()

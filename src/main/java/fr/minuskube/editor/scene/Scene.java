@@ -33,6 +33,7 @@ public class Scene {
 
     private int width, height;
     private ObservableList<SceneObject> objects;
+    private ObservableList<SceneObject> selectedObjects;
 
     private int scrollX, scrollY;
     private double zoom = 1;
@@ -47,6 +48,7 @@ public class Scene {
         this.height = height;
 
         this.objects = FXCollections.observableArrayList();
+        this.selectedObjects = FXCollections.observableArrayList();
     }
 
     public void init() {
@@ -71,8 +73,10 @@ public class Scene {
             else if(event.getCode() == KeyCode.RIGHT)
                 moveSelectedObjects(distance, 0);
 
-            else if(event.getCode() == KeyCode.DELETE)
+            else if(event.getCode() == KeyCode.DELETE) {
                 objects.removeIf(SceneObject::isSelected);
+                selectedObjects.clear();
+            }
 
             else if(event.isControlDown() && event.getCode() == KeyCode.C) {
                 ClipboardContent content = new ClipboardContent();
@@ -80,10 +84,7 @@ public class Scene {
                 List<SceneObject> selected = new ArrayList<>();
                 List<File> files = new ArrayList<>();
 
-                for(SceneObject object : objects) {
-                    if(!object.isSelected())
-                        continue;
-
+                for(SceneObject object : selectedObjects) {
                     if(object instanceof SceneImage)
                         files.add(((SceneImage) object).getSource());
 
@@ -135,14 +136,13 @@ public class Scene {
     }
 
     private void moveSelectedObjects(int x, int y) {
-        for(SceneObject object : objects) {
-            if(!object.isSelected())
-                continue;
-
+        for(SceneObject object : selectedObjects) {
             object.setX(object.getX() + x);
             object.setY(object.getY() + y);
         }
     }
+
+    public Canvas getCanvas() { return canvas; }
 
     public int getWidth() { return width; }
     public void setWidth(int width) { this.width = width; }
@@ -150,6 +150,7 @@ public class Scene {
     public int getHeight() { return height; }
     public void setHeight(int height) { this.height = height; }
 
+    public ObservableList<SceneObject> getSelectedObjects() { return selectedObjects; }
     public ObservableList<SceneObject> getObjects() { return objects; }
 
     public int getScrollX() { return scrollX; }
@@ -285,8 +286,16 @@ public class Scene {
                         hovered = true;
 
                     if(!this.wasPrimaryButtonDown && event.isPrimaryButtonDown()) {
-                        if(object.isHovered() || !event.isControlDown())
-                            object.setSelected(object.isHovered());
+                        if(object.isHovered() || !event.isControlDown()) {
+                            if(object.isHovered()) {
+                                object.setSelected(true);
+                                scene.getSelectedObjects().add(object);
+                            }
+                            else {
+                                object.setSelected(false);
+                                scene.getSelectedObjects().remove(object);
+                            }
+                        }
                     }
 
                     if(event.isPrimaryButtonDown() && object.isSelected()) {

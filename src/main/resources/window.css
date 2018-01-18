@@ -1,8 +1,16 @@
-.pane {
+.pane, .list-cell {
     -fx-background: #333;
     -fx-background-color: #333;
     -fx-border-width: 0;
+}
+
+.pane {
     -fx-padding: 0;
+}
+
+.list-cell:selected {
+    -fx-background: #222;
+    -fx-background-color: #222;
 }
 
 .split-pane .split-pane-divider {

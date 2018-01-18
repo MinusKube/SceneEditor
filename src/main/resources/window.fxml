@@ -8,6 +8,7 @@
 <?import fr.minuskube.editor.scene.Scene.Canvas?>
 
 <?import fr.minuskube.editor.properties.PropertiesPane?>
+<?import fr.minuskube.editor.layers.LayersPane?>
 <VBox fx:controller="fr.minuskube.editor.Controller" xmlns:fx="http://javafx.com/fxml"
       alignment="center" styleClass="pane" >
 
@@ -36,7 +37,7 @@
         <SplitPane VBox.vgrow="ALWAYS" dividerPositions="0.2" styleClass="pane">
             <VBox styleClass="pane" minWidth="150" maxWidth="300">
                 <SplitPane VBox.vgrow="ALWAYS" orientation="VERTICAL" dividerPositions="0.6" styleClass="pane">
-                    <ScrollPane minHeight="200" fitToWidth="true" fitToHeight="true" styleClass="pane" />
+                    <LayersPane fx:id="layersPane" minHeight="200" fitToWidth="true" fitToHeight="true" styleClass="pane" />
                     <PropertiesPane fx:id="propertiesPane" minHeight="200" fitToWidth="true" fitToHeight="true" styleClass="pane" />
                 </SplitPane>
             </VBox>
