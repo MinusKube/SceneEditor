@@ -10,5 +10,6 @@ repositories {
 }
 
 dependencies {
+    compile "com.google.guava:guava:23.0"
     compile "com.jfoenix:jfoenix:9.0.1"
 }

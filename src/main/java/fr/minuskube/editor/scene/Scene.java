@@ -1,9 +1,12 @@
 package fr.minuskube.editor.scene;
 
 import fr.minuskube.editor.control.DrawableCanvas;
+import fr.minuskube.editor.scene.object.SceneImage;
 import fr.minuskube.editor.scene.object.SceneObject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -17,7 +20,11 @@ import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Scene {
 
@@ -67,11 +74,59 @@ public class Scene {
             else if(event.getCode() == KeyCode.DELETE)
                 objects.removeIf(SceneObject::isSelected);
 
+            else if(event.isControlDown() && event.getCode() == KeyCode.C) {
+                ClipboardContent content = new ClipboardContent();
+
+                List<SceneObject> selected = new ArrayList<>();
+                List<File> files = new ArrayList<>();
+
+                for(SceneObject object : objects) {
+                    if(!object.isSelected())
+                        continue;
+
+                    if(object instanceof SceneImage)
+                        files.add(((SceneImage) object).getSource());
+
+                    selected.add(object);
+                }
+
+                content.put(SceneImage.DATA_FORMAT, selected);
+                content.putFiles(files);
+
+                Clipboard clipboard = Clipboard.getSystemClipboard();
+                clipboard.setContent(content);
+            }
+
+            else if(event.isControlDown() && event.getCode() == KeyCode.V) {
+                Clipboard clipboard = Clipboard.getSystemClipboard();
+
+                Object list = clipboard.getContent(SceneImage.DATA_FORMAT);
+
+                if(list instanceof List<?>) {
+                    for(Object obj : (List<?>) list) {
+                        if(obj instanceof SceneObject)
+                            objects.add((SceneObject) obj);
+                    }
+                }
+                else {
+                    for(File file : clipboard.getFiles()) {
+                        try {
+                            ImageIO.read(file);
+
+                            SceneImage object = new SceneImage(file);
+                            objects.add(object);
+                        } catch(IOException ignored) {}
+                    }
+                }
+            }
+
             canvas.redraw();
         });
     }
 
     public void reset() {
+        saveLocation = null;
+
         scrollX = (int) (canvas.getWidth() - width) / 2;
         scrollY = (int) (canvas.getHeight() - height) / 2;
         zoom = 1;

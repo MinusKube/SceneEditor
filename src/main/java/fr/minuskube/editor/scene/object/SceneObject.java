@@ -2,12 +2,14 @@ package fr.minuskube.editor.scene.object;
 
 import javafx.scene.canvas.GraphicsContext;
 
-public abstract class SceneObject {
+import java.io.Serializable;
+
+public abstract class SceneObject implements Serializable {
 
     private int x, y;
 
-    private boolean hovered;
-    private boolean selected;
+    private transient boolean hovered;
+    private transient boolean selected;
 
     public abstract void draw(GraphicsContext context);
 

@@ -36,10 +36,11 @@ public class Controller {
 
             if(opDimension.isPresent()) {
                 Dimension2D dimension = opDimension.get();
+                Scene scene = editor.getScene();
 
-                editor.getScene().setWidth((int) dimension.getWidth());
-                editor.getScene().setHeight((int) dimension.getHeight());
-                editor.getScene().reset();
+                scene.setWidth((int) dimension.getWidth());
+                scene.setHeight((int) dimension.getHeight());
+                scene.reset();
             }
         });
 

@@ -2,21 +2,35 @@ package fr.minuskube.editor.scene.object;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.DataFormat;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 public class SceneImage extends SceneObject {
 
-    private Image image;
+    public static final DataFormat DATA_FORMAT = new DataFormat("s-editor/img");
+
     private File source;
 
-    private int width, height;
+    private transient Image image;
+    private transient int width, height;
 
     public SceneImage(File source) throws FileNotFoundException {
-        this.image = new Image(new FileInputStream(source));
         this.source = source;
+        this.image = new Image(new FileInputStream(source));
+
+        this.width = (int) image.getWidth();
+        this.height = (int) image.getHeight();
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+
+        this.image = new Image(new FileInputStream(source));
 
         this.width = (int) image.getWidth();
         this.height = (int) image.getHeight();
