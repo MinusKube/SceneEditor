@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import fr.minuskube.editor.scene.Scene.Canvas?>
 
+<?import fr.minuskube.editor.properties.PropertiesPane?>
 <VBox fx:controller="fr.minuskube.editor.Controller" xmlns:fx="http://javafx.com/fxml"
       alignment="center" styleClass="pane" >
 
@@ -17,7 +18,7 @@
             <MenuItem fx:id="menuFileSave" text="_Save Scene" accelerator="CTRL+S" />
             <MenuItem fx:id="menuFileSaveAs" text="_Save Scene as..." accelerator="CTRL+SHIFT+S" />
             <MenuItem fx:id="menuFileImport" text="_Import into Scene..." />
-            <MenuItem fx:id="menuFileExit" text="Exit" />
+            <MenuItem fx:id="menuFileExit" text="E_xit" />
         </Menu>
 
         <Menu text="_Edit">
@@ -36,19 +37,19 @@
             <VBox styleClass="pane" minWidth="150" maxWidth="300">
                 <SplitPane VBox.vgrow="ALWAYS" orientation="VERTICAL" dividerPositions="0.6" styleClass="pane">
                     <ScrollPane minHeight="200" fitToWidth="true" fitToHeight="true" styleClass="pane" />
-                    <ScrollPane minHeight="200" fitToWidth="true" fitToHeight="true" styleClass="pane" />
+                    <PropertiesPane fx:id="propertiesPane" minHeight="200" fitToWidth="true" fitToHeight="true" styleClass="pane" />
                 </SplitPane>
             </VBox>
 
             <VBox styleClass="pane">
                 <SplitPane VBox.vgrow="ALWAYS" orientation="VERTICAL" dividerPositions="0.8" styleClass="pane">
-                    <ResizableCanvas styleClass="scene-canvas">
+                    <ResizableCanvas minHeight="300" styleClass="scene-canvas">
                         <canvas>
                             <Scene.Canvas fx:id="sceneCanvas" />
                         </canvas>
                     </ResizableCanvas>
 
-                    <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="pane" />
+                    <ScrollPane minHeight="100" fitToWidth="true" fitToHeight="true" styleClass="pane" />
                 </SplitPane>
             </VBox>
         </SplitPane>
