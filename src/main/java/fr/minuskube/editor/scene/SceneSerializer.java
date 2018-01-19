@@ -21,8 +21,8 @@ public class SceneSerializer {
             out.writeInt(scene.getWidth());
             out.writeInt(scene.getHeight());
 
-            out.writeInt(scene.getScrollX());
-            out.writeInt(scene.getScrollY());
+            out.writeDouble(scene.getScrollX());
+            out.writeDouble(scene.getScrollY());
 
             out.writeInt(scene.getObjects().size());
 
@@ -45,8 +45,8 @@ public class SceneSerializer {
             scene.setWidth(in.readInt());
             scene.setHeight(in.readInt());
 
-            scene.setScrollX(in.readInt());
-            scene.setScrollY(in.readInt());
+            scene.setScrollX(in.readDouble());
+            scene.setScrollY(in.readDouble());
 
             int size = in.readInt();
             for(int i = 0; i < size; i++) {

@@ -26,6 +26,6 @@ public abstract class SceneObject implements Serializable {
     public void setHovered(boolean hovered) { this.hovered = hovered; }
 
     public boolean isSelected() { return selected; }
-    public void setSelected(boolean selected) { this.selected = selected; }
+    public void setSelected(boolean selected) { System.out.println("Selected: " + selected + ", " + hashCode()); this.selected = selected; }
 
 }

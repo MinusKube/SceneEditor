@@ -18,6 +18,7 @@
             <MenuItem fx:id="menuFileOpen" text="_Open Scene..." accelerator="CTRL+O" />
             <MenuItem fx:id="menuFileSave" text="_Save Scene" accelerator="CTRL+S" />
             <MenuItem fx:id="menuFileSaveAs" text="_Save Scene as..." accelerator="CTRL+SHIFT+S" />
+            <MenuItem fx:id="menuFileExport" text="_Export to..." />
             <MenuItem fx:id="menuFileImport" text="_Import into Scene..." />
             <MenuItem fx:id="menuFileExit" text="E_xit" />
         </Menu>

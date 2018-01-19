@@ -35,7 +35,7 @@ public class Scene {
     private ObservableList<SceneObject> objects;
     private ObservableList<SceneObject> selectedObjects;
 
-    private int scrollX, scrollY;
+    private double scrollX, scrollY;
     private double zoom = 1;
 
     private File saveLocation;
@@ -56,13 +56,13 @@ public class Scene {
             int distance = event.isShiftDown() ? 10 : 1;
 
             if(event.getCode() == KeyCode.Z)
-                scrollY -= distance;
+                scrollY -= distance / canvas.getHeight();
             else if(event.getCode() == KeyCode.S)
-                scrollY += distance;
+                scrollY += distance / canvas.getHeight();
             else if(event.getCode() == KeyCode.Q)
-                scrollX -= distance;
+                scrollX -= distance / canvas.getWidth();
             else if(event.getCode() == KeyCode.D)
-                scrollX += distance;
+                scrollX += distance / canvas.getWidth();
 
             else if(event.getCode() == KeyCode.UP)
                 moveSelectedObjects(0, -distance);
@@ -128,8 +128,8 @@ public class Scene {
     public void reset() {
         saveLocation = null;
 
-        scrollX = (int) (canvas.getWidth() - width) / 2;
-        scrollY = (int) (canvas.getHeight() - height) / 2;
+        scrollX = ((canvas.getWidth() - width) / 2) / getWidth();
+        scrollY = ((canvas.getHeight() - height) / 2) / getHeight();
         zoom = 1;
 
         objects.clear();
@@ -153,11 +153,11 @@ public class Scene {
     public ObservableList<SceneObject> getSelectedObjects() { return selectedObjects; }
     public ObservableList<SceneObject> getObjects() { return objects; }
 
-    public int getScrollX() { return scrollX; }
-    public void setScrollX(int scrollX) { this.scrollX = scrollX; }
+    public double getScrollX() { return scrollX; }
+    public void setScrollX(double scrollX) { this.scrollX = scrollX; }
 
-    public int getScrollY() { return scrollY; }
-    public void setScrollY(int scrollY) { this.scrollY = scrollY; }
+    public double getScrollY() { return scrollY; }
+    public void setScrollY(double scrollY) { this.scrollY = scrollY; }
 
     public double getZoom() { return zoom; }
     public void setZoom(double zoom) { this.zoom = zoom; }
@@ -188,7 +188,7 @@ public class Scene {
                 context.fillRect(0, 0, getWidth(), getHeight());
 
                 Affine affine = new Affine();
-                affine.append(new Translate(scene.getScrollX(), scene.getScrollY()));
+                affine.append(new Translate(scene.getScrollX() * getWidth(), scene.getScrollY() * getHeight()));
                 affine.append(new Scale(scene.getZoom(), scene.getZoom()));
 
                 context.setTransform(affine);
@@ -239,6 +239,8 @@ public class Scene {
             setEventHandler(ScrollEvent.SCROLL, event -> {
                 double deltaY = event.getDeltaY() / 500;
 
+                double oldZoom = scene.getZoom();
+
                 double zoom = scene.getZoom() + deltaY;
                 zoom = Math.max(zoom, 0.1);
                 zoom = Math.min(zoom, 5);
@@ -255,15 +257,18 @@ public class Scene {
                 mouseX = (int) event.getX();
                 mouseY = (int) event.getY();
 
-                int screenX = (int) ((mouseX - scene.getScrollX()) / scene.getZoom());
-                int screenY = (int) ((mouseY - scene.getScrollY()) / scene.getZoom());
+                int scrollX = (int) (scene.getScrollX() * getWidth());
+                int scrollY = (int) (scene.getScrollY() * getHeight());
+
+                int screenX = (int) ((mouseX - scrollX) / scene.getZoom());
+                int screenY = (int) ((mouseY - scrollY) / scene.getZoom());
 
                 int distMouseX = mouseX - oldMouseX;
                 int distMouseY = mouseY - oldMouseY;
 
                 if(event.isMiddleButtonDown()) {
-                    scene.setScrollX(scene.getScrollX() + distMouseX);
-                    scene.setScrollY(scene.getScrollY() + distMouseY);
+                    scene.setScrollX((scrollX + distMouseX) / getWidth());
+                    scene.setScrollY((scrollY + distMouseY) / getHeight());
                 }
 
                 boolean hovered = false;

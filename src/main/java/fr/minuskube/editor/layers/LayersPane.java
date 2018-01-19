@@ -5,10 +5,12 @@ import fr.minuskube.editor.scene.Scene;
 import fr.minuskube.editor.scene.object.SceneImage;
 import fr.minuskube.editor.scene.object.SceneObject;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.image.ImageView;
@@ -43,6 +45,11 @@ public class LayersPane extends ScrollPane {
             this.controller.initListeners(this);
 
             editor.getScene().getObjects().addListener((ListChangeListener<SceneObject>) change -> {
+                if(controller.selfChanging)
+                    return;
+
+                controller.selfChanging = true;
+
                 while(change.next()) {
                     for(SceneObject added : change.getAddedSubList()) {
                         List<HBox> items = controller.getList().getItems();
@@ -59,6 +66,8 @@ public class LayersPane extends ScrollPane {
                         objectBoxes.remove(removed);
                     }
                 }
+
+                controller.selfChanging = false;
             });
 
             this.setContent(root);
@@ -90,38 +99,38 @@ public class LayersPane extends ScrollPane {
         @FXML
         private ListView<HBox> list;
 
-        private boolean toast = false;
+        public boolean selfChanging = false;
 
         public void initListeners(LayersPane pane) {
             Scene scene = pane.getEditor().getScene();
 
-            scene.getSelectedObjects().addListener((ListChangeListener<SceneObject>) change -> {
-                if(toast)
+            list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+            scene.getSelectedObjects().addListener((ListChangeListener<? super SceneObject>) change -> {
+                if(selfChanging)
                     return;
 
-                toast = true;
+                selfChanging = true;
 
-                list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-                list.getSelectionModel().clearSelection();
+                MultipleSelectionModel<HBox> model = list.getSelectionModel();
+                model.clearSelection();
 
-                for(SceneObject object : change.getList()) {
-                    int index = scene.getObjects().indexOf(object);
+                for(SceneObject object : change.getList())
+                    model.select(pane.getObjectBoxes().get(object));
 
-                    if(!list.getSelectionModel().isSelected(index))
-                        list.getSelectionModel().select(index);
-                }
-
-                toast = false;
+                selfChanging = false;
             });
 
             list.getSelectionModel().getSelectedIndices().addListener((ListChangeListener<? super Integer>) change -> {
-                if(toast)
+                if(selfChanging)
                     return;
 
-                for(int i = 0; i < scene.getObjects().size(); i++) {
-                    SceneObject object = scene.getObjects().get(i);
+                selfChanging = true;
 
-                    toast = true;
+                ObservableList<SceneObject> objects = scene.getObjects();
+
+                for(int i = 0; i < objects.size(); i++) {
+                    SceneObject object = objects.get(i);
 
                     if(change.getList().contains(i)) {
                         object.setSelected(true);
@@ -131,11 +140,11 @@ public class LayersPane extends ScrollPane {
                         object.setSelected(false);
                         scene.getSelectedObjects().remove(object);
                     }
-
-                    toast = false;
-
-                    scene.getCanvas().redraw();
                 }
+
+                scene.getCanvas().redraw();
+
+                selfChanging = false;
             });
         }
 

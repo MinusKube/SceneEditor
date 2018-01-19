@@ -24,6 +24,7 @@ public class Controller {
     @FXML private MenuItem menuFileOpen;
     @FXML private MenuItem menuFileSave;
     @FXML private MenuItem menuFileSaveAs;
+    @FXML private MenuItem menuFileExport;
     @FXML private MenuItem menuFileImport;
     @FXML private MenuItem menuFileExit;
 
@@ -95,6 +96,10 @@ public class Controller {
 
             if(file != null)
                 SceneSerializer.save(file, editor.getScene());
+        });
+
+        menuFileExport.setOnAction(event -> {
+
         });
 
         menuFileImport.setOnAction(event -> {
