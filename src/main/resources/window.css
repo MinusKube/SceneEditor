@@ -54,3 +54,20 @@
     -fx-border-width: 0 0 4 0;
     -fx-border-color: #2A2A2A;
 }
+
+.layer-box > .pane {
+    -fx-min-width: 50;
+    -fx-pref-width: 50;
+    -fx-max-width: 50;
+    -fx-min-height: 50;
+    -fx-pref-height: 50;
+    -fx-max-height: 50;
+
+    -fx-padding: 4;
+    -fx-background: #222;
+    -fx-background-color: #222;
+}
+
+.layer-box > .label {
+    -fx-padding: 0 0 0 20;
+}

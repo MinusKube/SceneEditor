@@ -9,12 +9,14 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -79,15 +81,20 @@ public class LayersPane extends ScrollPane {
 
     private HBox newImage(SceneImage image) {
         HBox box = new HBox();
+        box.setAlignment(Pos.CENTER_LEFT);
+        box.getStyleClass().add("layer-box");
 
         ImageView thumb = new ImageView(image.getImage());
         thumb.setFitWidth(50);
         thumb.setFitHeight(50);
         thumb.setPreserveRatio(true);
 
+        BorderPane thumbPane = new BorderPane(thumb);
+        thumbPane.getStyleClass().add("pane");
+
         Label label = new Label(Integer.toHexString(new Random().nextInt(Integer.MAX_VALUE)));
 
-        box.getChildren().addAll(thumb, label);
+        box.getChildren().addAll(thumbPane, label);
 
         return box;
     }
