@@ -93,6 +93,20 @@ public class LayersPane extends ScrollPane {
     }
 
     public SceneEditor getEditor() { return editor; }
+
+    public SceneObject getObjectFromBox(HBox box) {
+        for(Map.Entry<SceneObject, HBox> entry : objectBoxes.entrySet()) {
+            if(entry.getValue() == box)
+                return entry.getKey();
+        }
+
+        return null;
+    }
+
+    public HBox getBoxFromObject(SceneObject object) {
+        return objectBoxes.get(object);
+    }
+
     public Map<SceneObject, HBox> getObjectBoxes() { return objectBoxes; }
 
     public static class Controller {
@@ -108,6 +122,21 @@ public class LayersPane extends ScrollPane {
             list.setCellFactory(list -> new DraggableListCell<>());
             list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
+            list.getItems().addListener((ListChangeListener<? super HBox>) change -> {
+                if(selfChanging)
+                    return;
+
+                selfChanging = true;
+
+                List<SceneObject> objects = scene.getObjects();
+                objects.clear();
+
+                for(HBox box : change.getList())
+                    objects.add(pane.getObjectFromBox(box));
+
+                selfChanging = false;
+            });
+
             scene.getSelectedObjects().addListener((ListChangeListener<? super SceneObject>) change -> {
                 if(selfChanging)
                     return;
@@ -118,7 +147,7 @@ public class LayersPane extends ScrollPane {
                 model.clearSelection();
 
                 for(SceneObject object : change.getList())
-                    model.select(pane.getObjectBoxes().get(object));
+                    model.select(pane.getBoxFromObject(object));
 
                 selfChanging = false;
             });

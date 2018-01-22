@@ -210,18 +210,24 @@ public class Scene {
                     context.clip();
                 }
 
-                scene.getObjects().forEach(object -> {
+                List<SceneObject> objects = scene.getObjects();
+
+                for(int i = objects.size() - 1; i >= 0; i--) {
+                    SceneObject object = objects.get(i);
+
                     context.save();
                     context.translate(object.getX(), object.getY());
 
                     object.draw(context);
 
                     context.restore();
-                });
+                }
 
                 context.restore();
 
-                scene.getObjects().forEach(object -> {
+                for(int i = objects.size() - 1; i >= 0; i--) {
+                    SceneObject object = objects.get(i);
+
                     if(object.isHovered() || object.isSelected()) {
                         if(object.isSelected())
                             context.setStroke(selectColor);
@@ -233,7 +239,7 @@ public class Scene {
                         context.strokeRect(object.getX() - 2, object.getY() - 2,
                                 object.getWidth() + 4, object.getHeight() + 4);
                     }
-                });
+                }
 
                 context.setTransform(new Affine());
             });
@@ -274,11 +280,7 @@ public class Scene {
                 }
 
                 boolean hovered = false;
-                ObservableList<SceneObject> objects = scene.getObjects();
-
-                for(int i = objects.size() - 1; i >= 0; i--) {
-                    SceneObject object = objects.get(i);
-
+                for(SceneObject object : scene.getObjects()) {
                     if(!hovered && !event.isPrimaryButtonDown()) {
                         object.setHovered(
                                 screenX >= object.getX() && screenY >= object.getY()
