@@ -44,3 +44,13 @@
 .context-menu {
     -fx-background-color: #222;
 }
+
+.cell-drag-over-top {
+    -fx-border-width: 4 0 0 0;
+    -fx-border-color: #2A2A2A;
+}
+
+.cell-drag-over-bottom {
+    -fx-border-width: 0 0 4 0;
+    -fx-border-color: #2A2A2A;
+}

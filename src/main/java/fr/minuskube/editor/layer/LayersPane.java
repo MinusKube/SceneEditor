@@ -1,6 +1,7 @@
-package fr.minuskube.editor.layers;
+package fr.minuskube.editor.layer;
 
 import fr.minuskube.editor.SceneEditor;
+import fr.minuskube.editor.control.DraggableListCell;
 import fr.minuskube.editor.scene.Scene;
 import fr.minuskube.editor.scene.object.SceneImage;
 import fr.minuskube.editor.scene.object.SceneObject;
@@ -104,6 +105,7 @@ public class LayersPane extends ScrollPane {
         public void initListeners(LayersPane pane) {
             Scene scene = pane.getEditor().getScene();
 
+            list.setCellFactory(list -> new DraggableListCell<>());
             list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
             scene.getSelectedObjects().addListener((ListChangeListener<? super SceneObject>) change -> {

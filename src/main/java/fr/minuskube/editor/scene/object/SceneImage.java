@@ -27,6 +27,21 @@ public class SceneImage extends SceneObject {
         this.height = (int) image.getHeight();
     }
 
+    public SceneImage(SceneImage image) {
+        this.setX(image.getX());
+        this.setY(image.getY());
+
+        try {
+            this.source = image.getSource();
+            this.image = new Image(new FileInputStream(source));
+
+            this.width = (int) this.image.getWidth();
+            this.height = (int) this.image.getHeight();
+        } catch(FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
 

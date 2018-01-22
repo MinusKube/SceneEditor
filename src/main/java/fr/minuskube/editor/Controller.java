@@ -1,8 +1,8 @@
 package fr.minuskube.editor;
 
 import fr.minuskube.editor.dialog.NewSceneDialog;
-import fr.minuskube.editor.layers.LayersPane;
-import fr.minuskube.editor.properties.PropertiesPane;
+import fr.minuskube.editor.layer.LayersPane;
+import fr.minuskube.editor.property.PropertiesPane;
 import fr.minuskube.editor.scene.Scene;
 import fr.minuskube.editor.scene.SceneSerializer;
 import fr.minuskube.editor.scene.object.SceneImage;

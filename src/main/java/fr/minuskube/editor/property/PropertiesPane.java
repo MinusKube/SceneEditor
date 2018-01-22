@@ -1,4 +1,4 @@
-package fr.minuskube.editor.properties;
+package fr.minuskube.editor.property;
 
 import fr.minuskube.editor.SceneEditor;
 import javafx.fxml.FXML;

@@ -7,8 +7,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import fr.minuskube.editor.scene.Scene.Canvas?>
 
-<?import fr.minuskube.editor.properties.PropertiesPane?>
-<?import fr.minuskube.editor.layers.LayersPane?>
+<?import fr.minuskube.editor.property.PropertiesPane?>
+<?import fr.minuskube.editor.layer.LayersPane?>
 <VBox fx:controller="fr.minuskube.editor.Controller" xmlns:fx="http://javafx.com/fxml"
       alignment="center" styleClass="pane" >
 

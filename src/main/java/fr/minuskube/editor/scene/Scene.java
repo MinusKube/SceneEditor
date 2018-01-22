@@ -85,10 +85,12 @@ public class Scene {
                 List<File> files = new ArrayList<>();
 
                 for(SceneObject object : selectedObjects) {
-                    if(object instanceof SceneImage)
-                        files.add(((SceneImage) object).getSource());
+                    if(object instanceof SceneImage) {
+                        SceneImage image = (SceneImage) object;
 
-                    selected.add(object);
+                        files.add(image.getSource());
+                        selected.add(new SceneImage(image));
+                    }
                 }
 
                 content.put(SceneImage.DATA_FORMAT, selected);
