@@ -298,10 +298,13 @@ public class Scene {
                         if(object.isHovered() || !event.isControlDown()) {
                             if(object.isHovered()) {
                                 object.setSelected(true);
-                                scene.getSelectedObjects().add(object);
+
+                                if(!scene.getSelectedObjects().contains(object))
+                                    scene.getSelectedObjects().add(object);
                             }
                             else {
                                 object.setSelected(false);
+
                                 scene.getSelectedObjects().remove(object);
                             }
                         }
