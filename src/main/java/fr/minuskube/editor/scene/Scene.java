@@ -259,6 +259,9 @@ public class Scene {
             });
 
             setEventHandler(MouseEvent.ANY, event -> {
+                if(event.getEventType() == MouseEvent.MOUSE_ENTERED)
+                    return;
+
                 int oldMouseX = mouseX;
                 int oldMouseY = mouseY;
 
@@ -283,6 +286,7 @@ public class Scene {
                 for(SceneObject object : scene.getObjects()) {
                     if(!hovered && !event.isPrimaryButtonDown()) {
                         object.setHovered(
+                                event.getEventType() != MouseEvent.MOUSE_EXITED &&
                                 screenX >= object.getX() && screenY >= object.getY()
                                         && screenX <= object.getX() + object.getWidth()
                                         && screenY <= object.getY() + object.getHeight()
