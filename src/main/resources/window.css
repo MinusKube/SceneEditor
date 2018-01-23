@@ -68,6 +68,21 @@
     -fx-background-color: #222;
 }
 
-.layer-box > .label {
-    -fx-padding: 0 0 0 20;
+.layer-box > .text-field {
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+
+    -fx-background: #2A2A2A;
+    -fx-background-color: #2A2A2A;
+    -fx-background-radius: 0;
+
+    -fx-text-fill: #AAA;
+
+    -fx-padding: 15;
+}
+
+.layer-box > .text-field:readonly {
+    -fx-border-width: 0;
+    -fx-background: transparent;
+    -fx-background-color: transparent;
 }
