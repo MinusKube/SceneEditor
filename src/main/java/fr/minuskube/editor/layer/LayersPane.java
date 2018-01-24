@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class LayersPane extends ScrollPane {
 
@@ -105,6 +104,9 @@ public class LayersPane extends ScrollPane {
                 model.clearSelection();
                 model.select(controller.getList().getItems().indexOf(box));
             }
+
+            if(!field.isEditable())
+                editor.getScene().getCanvas().requestFocus();
         });
 
         field.setOnKeyPressed(event -> {
