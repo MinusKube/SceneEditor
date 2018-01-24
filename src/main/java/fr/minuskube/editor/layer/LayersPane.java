@@ -94,7 +94,7 @@ public class LayersPane extends ScrollPane {
         BorderPane thumbPane = new BorderPane(thumb);
         thumbPane.getStyleClass().add("pane");
 
-        TextField field = new TextField(Integer.toHexString(new Random().nextInt(Integer.MAX_VALUE)));
+        TextField field = new TextField(image.getName());
         field.setEditable(false);
 
         field.setOnMouseClicked(event -> {
@@ -108,13 +108,18 @@ public class LayersPane extends ScrollPane {
         });
 
         field.setOnKeyPressed(event -> {
-            if(event.getCode() == KeyCode.ENTER)
+            if(event.getCode() == KeyCode.ENTER) {
+                image.setName(field.getText());
                 field.setEditable(false);
+            }
             else if(event.getCode() == KeyCode.F2)
                 field.setEditable(true);
         });
 
-        field.focusedProperty().addListener(((observable, oldValue, newValue) -> field.setEditable(false)));
+        field.focusedProperty().addListener(((observable, oldValue, newValue) -> {
+            image.setName(field.getText());
+            field.setEditable(false);
+        }));
 
         box.getChildren().addAll(thumbPane, field);
 

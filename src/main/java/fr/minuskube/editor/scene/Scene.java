@@ -4,6 +4,7 @@ import fr.minuskube.editor.control.DrawableCanvas;
 import fr.minuskube.editor.scene.object.SceneImage;
 import fr.minuskube.editor.scene.object.SceneObject;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
@@ -25,6 +26,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Scene {
 
@@ -52,6 +54,29 @@ public class Scene {
     }
 
     public void init() {
+        objects.addListener((ListChangeListener<? super SceneObject>) change -> {
+            while(change.next()) {
+                for(SceneObject added : change.getAddedSubList()) {
+                    if(added.getName() != null)
+                        continue;
+
+                    List<String> existingNames = objects.stream()
+                            .map(SceneObject::getName)
+                            .collect(Collectors.toList());
+
+                    int id = 1;
+                    String name;
+
+                    do {
+                        name = "Object " + id;
+                        id++;
+                    } while(existingNames.contains(name));
+
+                    added.setName(name);
+                }
+            }
+        });
+
         stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             int distance = event.isShiftDown() ? 10 : 1;
 

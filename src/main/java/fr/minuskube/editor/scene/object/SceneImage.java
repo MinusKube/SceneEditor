@@ -25,6 +25,8 @@ public class SceneImage extends SceneObject {
 
         this.width = (int) image.getWidth();
         this.height = (int) image.getHeight();
+
+        this.setName(source.getName().replaceAll("\\.[^.]+$", ""));
     }
 
     public SceneImage(SceneImage image) {

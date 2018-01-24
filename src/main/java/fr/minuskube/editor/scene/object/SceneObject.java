@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 public abstract class SceneObject implements Serializable {
 
+    private String name;
     private int x, y;
 
     private transient boolean hovered;
@@ -15,6 +16,9 @@ public abstract class SceneObject implements Serializable {
 
     public abstract int getWidth();
     public abstract int getHeight();
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
     public int getX() { return x; }
     public void setX(int x) { this.x = x; }
