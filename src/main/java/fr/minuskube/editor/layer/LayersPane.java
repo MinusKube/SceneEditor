@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.ScrollPane;
@@ -18,6 +19,7 @@ import javafx.scene.control.SelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -95,8 +97,12 @@ public class LayersPane extends ScrollPane {
 
         TextField field = new TextField(image.getName());
         field.setEditable(false);
+        field.setContextMenu(new ContextMenu());
 
         field.setOnMouseClicked(event -> {
+            if(event.getButton() != MouseButton.PRIMARY)
+                return;
+
             if(event.getClickCount() >= 2)
                 field.setEditable(true);
             else if(event.getClickCount() == 1) {

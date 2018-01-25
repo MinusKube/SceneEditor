@@ -98,7 +98,39 @@ public class Scene {
             else if(event.getCode() == KeyCode.RIGHT)
                 moveSelectedObjects(distance, 0);
 
+            else if(event.getCode() == KeyCode.R) {
+                zoom = 1;
+
+                scrollX = ((canvas.getWidth() - width) / 2) / getWidth();
+                scrollY = ((canvas.getHeight() - height) / 2) / getHeight();
+            }
+
             else if(event.getCode() == KeyCode.DELETE) {
+                objects.removeIf(SceneObject::isSelected);
+                selectedObjects.clear();
+            }
+
+            else if(event.isControlDown() && event.getCode() == KeyCode.X) {
+                ClipboardContent content = new ClipboardContent();
+
+                List<SceneObject> selected = new ArrayList<>();
+                List<File> files = new ArrayList<>();
+
+                for(SceneObject object : selectedObjects) {
+                    if(object instanceof SceneImage) {
+                        SceneImage image = (SceneImage) object;
+
+                        files.add(image.getSource());
+                        selected.add(new SceneImage(image));
+                    }
+                }
+
+                content.put(SceneImage.DATA_FORMAT, selected);
+                content.putFiles(files);
+
+                Clipboard clipboard = Clipboard.getSystemClipboard();
+                clipboard.setContent(content);
+
                 objects.removeIf(SceneObject::isSelected);
                 selectedObjects.clear();
             }
