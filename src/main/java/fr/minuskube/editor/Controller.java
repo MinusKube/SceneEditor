@@ -16,6 +16,7 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 public class Controller {
@@ -109,13 +110,15 @@ public class Controller {
             chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Animation", "*.anim"));
             chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("All", "*"));
 
-            File file = chooser.showOpenDialog(editor.getStage());
+            List<File> files = chooser.showOpenMultipleDialog(editor.getStage());
 
-            if(file != null) {
-                try {
-                    editor.getScene().getObjects().add(new SceneImage(file));
-                } catch(FileNotFoundException e) {
-                    e.printStackTrace();
+            if(files != null) {
+                for(File file : files) {
+                    try {
+                        editor.getScene().getObjects().add(new SceneImage(file));
+                    } catch(FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
