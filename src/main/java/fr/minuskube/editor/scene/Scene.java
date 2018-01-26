@@ -101,8 +101,8 @@ public class Scene {
             else if(event.getCode() == KeyCode.R) {
                 zoom = 1;
 
-                scrollX = ((canvas.getWidth() - width) / 2) / getWidth();
-                scrollY = ((canvas.getHeight() - height) / 2) / getHeight();
+                scrollX = ((canvas.getWidth() - width) / 2) / canvas.getWidth();
+                scrollY = ((canvas.getHeight() - height) / 2) / canvas.getHeight();
             }
 
             else if(event.getCode() == KeyCode.DELETE) {
@@ -187,8 +187,8 @@ public class Scene {
     public void reset() {
         saveLocation = null;
 
-        scrollX = ((canvas.getWidth() - width) / 2) / getWidth();
-        scrollY = ((canvas.getHeight() - height) / 2) / getHeight();
+        scrollX = ((canvas.getWidth() - width) / 2) / canvas.getWidth();
+        scrollY = ((canvas.getHeight() - height) / 2) / canvas.getHeight();
         zoom = 1;
 
         objects.clear();
@@ -252,6 +252,8 @@ public class Scene {
 
                 context.setTransform(affine);
                 context.save();
+
+                System.out.println(scene.getScrollX());
 
                 if(scene.getWidth() != 0 && scene.getHeight() != 0) {
                     context.setFill(Color.BLACK);
