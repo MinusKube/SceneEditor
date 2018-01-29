@@ -64,6 +64,8 @@ public class Controller {
                 scene.setSaveLocation(file);
 
                 SceneSerializer.load(file, scene);
+
+                scene.resetPosition();
             }
         });
 

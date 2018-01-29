@@ -99,10 +99,7 @@ public class Scene {
                 moveSelectedObjects(distance, 0);
 
             else if(event.getCode() == KeyCode.R) {
-                zoom = 1;
-
-                scrollX = ((canvas.getWidth() - width) / 2) / canvas.getWidth();
-                scrollY = ((canvas.getHeight() - height) / 2) / canvas.getHeight();
+                resetPosition();
             }
 
             else if(event.getCode() == KeyCode.DELETE) {
@@ -182,15 +179,26 @@ public class Scene {
 
             canvas.redraw();
         });
+
+        resetPosition();
+    }
+
+    public void resetPosition() {
+        double zoomX = (canvas.getWidth() - 20) / width;
+        double zoomY = (canvas.getHeight() - 20) / height;
+
+        if(zoomX < zoomY)
+            zoom = zoomX;
+        else
+            zoom = zoomY;
+
+        scrollX = ((canvas.getWidth() - (width * zoom)) / 2) / canvas.getWidth();
+        scrollY = ((canvas.getHeight() - (height * zoom)) / 2) / canvas.getHeight();
     }
 
     public void reset() {
         saveLocation = null;
-
-        scrollX = ((canvas.getWidth() - width) / 2) / canvas.getWidth();
-        scrollY = ((canvas.getHeight() - height) / 2) / canvas.getHeight();
-        zoom = 1;
-
+        resetPosition();
         objects.clear();
     }
 
