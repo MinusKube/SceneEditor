@@ -3,17 +3,18 @@ package fr.minuskube.editor.scene.object;
 import fr.minuskube.editor.animation.FrameRepeat;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SceneAnimation {
+public class SceneAnimation extends SceneObject {
 
     private ObservableList<SceneAnimationFrame> frames;
     private List<FrameRepeat> repeats;
 
-    private boolean playing = false;
-    private boolean looping = false;
+    private boolean playing = true;
+    private boolean looping = true;
 
     private int width, height;
     private boolean autoCrop;
@@ -27,7 +28,21 @@ public class SceneAnimation {
         this.repeats = new ArrayList<>();
     }
 
+    @Override
+    public void draw(GraphicsContext context) {
+        update(); // XXX: TEMPORARY
+
+        if(!this.frames.isEmpty()) {
+            System.out.println("Draw frame: " + currentFrame);
+
+            this.frames.get(currentFrame).draw(context);
+        }
+    }
+
     public void update() {
+        if(!playing)
+            return;
+
         SceneAnimationFrame frame = frames.get(currentFrame);
 
         currentFrameState += (1 / 60f) * speed; // TODO: Replace by deltaTime
@@ -46,6 +61,15 @@ public class SceneAnimation {
             }
 
             currentFrameState = 0;
+
+            if(currentFrame >= frames.size()) {
+                if(looping)
+                    currentFrame = 0;
+                else {
+                    currentFrame--;
+                    playing = false;
+                }
+            }
         }
     }
 

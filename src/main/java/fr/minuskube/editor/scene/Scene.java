@@ -1,8 +1,11 @@
 package fr.minuskube.editor.scene;
 
 import fr.minuskube.editor.control.DrawableCanvas;
+import fr.minuskube.editor.scene.object.SceneAnimation;
+import fr.minuskube.editor.scene.object.SceneAnimationFrame;
 import fr.minuskube.editor.scene.object.SceneImage;
 import fr.minuskube.editor.scene.object.SceneObject;
+import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -54,6 +57,20 @@ public class Scene {
     }
 
     public void init() {
+        AnimationTimer updateTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                canvas.redraw();
+
+                try {
+                    Thread.sleep((long) ((1 / 60.0) * 1000));
+                } catch(InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        updateTimer.start();
+
         objects.addListener((ListChangeListener<? super SceneObject>) change -> {
             while(change.next()) {
                 for(SceneObject added : change.getAddedSubList()) {
@@ -181,6 +198,34 @@ public class Scene {
         });
 
         resetPosition();
+
+        // XXX: Some animation tests
+        try {
+            SceneAnimation anim = new SceneAnimation();
+
+            int maxWidth = 0;
+            int maxHeight = 0;
+
+            for(int i = 1; i <= 12; i++) {
+                String num = i < 10 ? ("0" + i) : String.valueOf(i);
+
+                SceneAnimationFrame frame = new SceneAnimationFrame(new File("D:\\SVN\\2017-2018\\Sections\\PrepaJVA" +
+                        "\\imontagne\\graph\\Cuphead\\Cagney Carnation\\Death_Frames\\Death_" + num + ".png"));
+                frame.setDuration(1 / 24f);
+
+                maxWidth = Math.max(maxWidth, frame.getWidth());
+                maxHeight = Math.max(maxHeight, frame.getHeight());
+
+                anim.getFrames().add(frame);
+            }
+
+            anim.setWidth(maxWidth);
+            anim.setHeight(maxHeight);
+
+            this.objects.add(anim);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void resetPosition() {
@@ -260,8 +305,6 @@ public class Scene {
 
                 context.setTransform(affine);
                 context.save();
-
-                System.out.println(scene.getScrollX());
 
                 if(scene.getWidth() != 0 && scene.getHeight() != 0) {
                     context.setFill(Color.BLACK);
