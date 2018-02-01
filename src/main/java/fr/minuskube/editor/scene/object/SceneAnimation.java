@@ -33,8 +33,6 @@ public class SceneAnimation extends SceneObject {
         update(); // XXX: TEMPORARY
 
         if(!this.frames.isEmpty()) {
-            System.out.println("Draw frame: " + currentFrame);
-
             this.frames.get(currentFrame).draw(context);
         }
     }
