@@ -12,6 +12,7 @@ public abstract class SceneObject implements Serializable {
     private transient boolean hovered;
     private transient boolean selected;
 
+    public void update(float deltaTime) {}
     public abstract void draw(GraphicsContext context);
 
     public abstract int getWidth();

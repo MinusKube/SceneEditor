@@ -16,7 +16,8 @@ public class SceneEntity extends SceneObject {
         this.animations = FXCollections.observableArrayList();
     }
 
-    public void update() {
+    @Override
+    public void update(float deltaTime) {
         /*if(!animations.isEmpty()) {
             animations.get(currentAnimation).update();
         }*/
@@ -24,11 +25,8 @@ public class SceneEntity extends SceneObject {
 
     @Override
     public void draw(GraphicsContext context) {
-        update();
-
-        if(!animations.isEmpty()) {
+        if(!animations.isEmpty())
             animations.get(currentAnimation).draw(context);
-        }
     }
 
     @Override

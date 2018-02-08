@@ -12,6 +12,8 @@ public class DrawableCanvas extends Canvas {
 
     private Consumer<GraphicsContext> drawConsumer;
 
+    public void update(float deltaTime) {}
+
     public void redraw() {
         GraphicsContext context = getGraphicsContext2D();
         context.clearRect(0, 0, getWidth(), getHeight());

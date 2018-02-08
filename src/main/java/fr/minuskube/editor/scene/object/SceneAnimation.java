@@ -30,20 +30,18 @@ public class SceneAnimation extends SceneObject {
 
     @Override
     public void draw(GraphicsContext context) {
-        update(); // XXX: TEMPORARY
-
-        if(!this.frames.isEmpty()) {
+        if(!this.frames.isEmpty())
             this.frames.get(currentFrame).draw(context);
-        }
     }
 
-    public void update() {
+    @Override
+    public void update(float deltaTime) {
         if(!playing)
             return;
 
         SceneAnimationFrame frame = frames.get(currentFrame);
 
-        currentFrameState += (1 / 60f) * speed; // TODO: Replace by deltaTime
+        currentFrameState += deltaTime * speed;
 
         if(currentFrameState >= frame.getDuration()) {
             currentFrame++;

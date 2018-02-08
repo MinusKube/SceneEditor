@@ -58,15 +58,14 @@ public class Scene {
 
     public void init() {
         AnimationTimer updateTimer = new AnimationTimer() {
+            private long lastFrame = System.nanoTime();
+
             @Override
             public void handle(long now) {
+                canvas.update((now - this.lastFrame) / 1000000000f);
                 canvas.redraw();
 
-                try {
-                    Thread.sleep((long) ((1 / 60.0) * 1000));
-                } catch(InterruptedException e) {
-                    e.printStackTrace();
-                }
+                this.lastFrame = now;
             }
         };
         updateTimer.start();
@@ -279,13 +278,22 @@ public class Scene {
 
     public static class Canvas extends DrawableCanvas {
 
+        private Scene scene;
         private int mouseX, mouseY;
 
         private boolean wasPrimaryButtonDown;
 
         public Canvas() {}
 
+        @Override
+        public void update(float deltaTime) {
+            for(SceneObject object : scene.getObjects())
+                object.update(deltaTime);
+        }
+
         public void init(Scene scene) {
+            this.scene = scene;
+
             Color selectColor = Color.rgb(0, 100, 0, 0.5);
             Color hoverColor = Color.rgb(0, 100, 100, 0.5);
 
