@@ -1,8 +1,0 @@
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.VBox?>
-<VBox fx:controller="fr.minuskube.editor.property.PropertiesPane$Controller" xmlns:fx="http://javafx.com/fxml"
-      styleClass="pane">
-
-    <ListView fx:id="list" VBox.vgrow="ALWAYS" styleClass="pane" />
-
-</VBox>
