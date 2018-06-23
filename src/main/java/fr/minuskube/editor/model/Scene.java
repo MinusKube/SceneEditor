@@ -7,6 +7,15 @@ public class Scene {
 
     private ObservableList<Layer> layers = FXCollections.observableArrayList();
 
-    public ObservableList<Layer> getLayers() { return layers; }
+    public Scene() {
+        for(int i = 0; i < 10; i++) {
+            Layer layer = new Layer();
+            layer.nameProperty().set("Layer " + i);
+
+            this.layers.add(layer);
+        }
+    }
+
+    public ObservableList<Layer> getLayers() { return this.layers; }
 
 }

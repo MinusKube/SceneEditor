@@ -5,8 +5,9 @@ import javafx.beans.property.SimpleObjectProperty;
 
 public class Window {
 
-    private ObjectProperty<Scene> currentScene = new SimpleObjectProperty<>(this, "currentScene");
+    private ObjectProperty<Scene> currentScene = new SimpleObjectProperty<>(this, "currentScene",
+            new Scene());
 
-    public ObjectProperty<Scene> currentSceneProperty() { return currentScene; }
+    public ObjectProperty<Scene> currentSceneProperty() { return this.currentScene; }
 
 }
