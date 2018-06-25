@@ -7,8 +7,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.fxmisc.cssfx.CSSFX;
+import org.fxmisc.cssfx.api.URIToPathConverter;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 
 public class SceneEditorApp extends Application {
 
@@ -33,7 +36,15 @@ public class SceneEditorApp extends Application {
         Parent root = this.load("window.fxml");
 
         stage.setScene(new Scene(root));
+        stage.setTitle("Scene Editor");
         stage.show();
+
+        URIToPathConverter converter = uri -> Paths.get(
+                uri.replace("out/production", "src/main")
+                        .replace("file:/", "")
+        );
+
+        CSSFX.addConverter(converter).start();
     }
 
     public <T> T load(String path) throws IOException {

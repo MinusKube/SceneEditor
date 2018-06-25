@@ -1,0 +1,93 @@
+.menu, .menu-item, .menu-bar, .list-cell, .split-pane, .viewport, .clipped-container {
+    -fx-background-color: #333;
+    -fx-text-fill: #ccc;
+}
+
+.list-view, .split-pane {
+    -fx-padding: 0;
+}
+
+.menu-bar, .menu, .menu-item, .context-menu {
+    -fx-background-color: #222;
+}
+
+.menu:hover, .menu:focused, .menu-item:hover, .menu-item:focused {
+    -fx-background-color: #333;
+}
+
+.menu:pressed, .menu-item:pressed {
+    -fx-background-color: #111;
+}
+
+.menu .label {
+    -fx-text-fill: #ccc;
+}
+
+.list-cell {
+    -fx-padding: 10px;
+}
+
+.list-cell:selected {
+    -fx-background-color: #666;
+}
+
+.text-field {
+    -fx-background-radius: 0;
+    -fx-background-color: #CCC;
+}
+
+/******************** SCROLL BAR ********************/
+
+.scroll-bar {
+    -fx-background-color: #222;
+
+    -fx-padding: 0;
+    -fx-border-width: 0;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-padding: 5px;
+    -fx-background-insets: 0;
+}
+
+.scroll-bar .increment-button:hover, .scroll-bar .decrement-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+
+.scroll-bar .increment-button:pressed, .scroll-bar .decrement-button:pressed {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-background-color: white;
+    -fx-effect: none;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-radius: 0;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+}
+
+.scroll-bar .thumb:pressed {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+
+.corner {
+    -fx-background-color: #222;
+}
+
+/******************** SPLIT PANE ********************/
+
+.split-pane-divider {
+    -fx-background-color: #2A2A2A;
+}
+
+/******************** OTHER ********************/
+
+.layer .label {
+    -fx-text-fill: #ccc;
+}

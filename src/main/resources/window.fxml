@@ -7,6 +7,7 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="fr.minuskube.editor.controller.WindowController"
+      stylesheets="@css/style.css"
       prefHeight="720" prefWidth="1280">
 
     <MenuBar>
