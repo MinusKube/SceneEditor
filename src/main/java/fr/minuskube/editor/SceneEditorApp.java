@@ -31,13 +31,11 @@ public class SceneEditorApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Stage stage = new Stage();
-
         Parent root = this.load("window.fxml");
 
-        stage.setScene(new Scene(root));
-        stage.setTitle("Scene Editor");
-        stage.show();
+        primaryStage.setScene(new Scene(root));
+        primaryStage.setTitle("Scene Editor");
+        primaryStage.show();
 
         URIToPathConverter converter = uri -> Paths.get(
                 uri.replace("out/production", "src/main")

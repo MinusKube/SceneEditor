@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="fr.minuskube.editor.controller.LayerController"
+      stylesheets="@css/style.css"
+      styleClass="layer"
+      spacing="10" alignment="CENTER_LEFT">
+
+    <ImageView fx:id="thumbnail" fitWidth="30" fitHeight="30" />
+
+    <Group>
+        <Label fx:id="label" />
+        <TextField fx:id="field" />
+    </Group>
+
+</HBox>

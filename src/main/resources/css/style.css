@@ -1,6 +1,10 @@
-.menu, .menu-item, .menu-bar, .list-cell, .split-pane, .viewport, .clipped-container {
+.menu, .menu-item, .menu-bar, .list-view, .list-cell, .split-pane, .viewport, .clipped-container {
     -fx-background-color: #333;
     -fx-text-fill: #ccc;
+}
+
+.list-view:focused, .list-cell:focused {
+    -fx-effect: innershadow(gaussian, #88F, 5, 0.1, 0, 0);
 }
 
 .list-view, .split-pane {

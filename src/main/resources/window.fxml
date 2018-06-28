@@ -8,6 +8,7 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="fr.minuskube.editor.controller.WindowController"
       stylesheets="@css/style.css"
+      pickOnBounds="false"
       prefHeight="720" prefWidth="1280">
 
     <MenuBar>
@@ -22,7 +23,7 @@
         </Menu>
 
         <Menu text="_Edit">
-            <MenuItem text="Test"/>
+            <MenuItem text="Test" />
             <MenuItem text="Test 2" />
         </Menu>
 
