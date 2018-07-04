@@ -78,6 +78,11 @@ public class LayerController implements Initializable {
             if(newValue.intValue() != this.index)
                 this.stopEditingLayerName();
         });
+
+        this.layers.addEventHandler(KeyEvent.ANY, event -> {
+            if(this.field.isVisible())
+                event.consume();
+        });
     }
 
     private void startEditingLayerName() {

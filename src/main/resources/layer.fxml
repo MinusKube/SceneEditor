@@ -12,7 +12,7 @@
       styleClass="layer"
       spacing="10" alignment="CENTER_LEFT">
 
-    <ImageView fx:id="thumbnail" fitWidth="30" fitHeight="30" />
+    <ImageView fx:id="thumbnail" fitWidth="30" fitHeight="30"  />
 
     <Group>
         <Label fx:id="label" />

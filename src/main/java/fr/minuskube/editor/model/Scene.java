@@ -1,7 +1,9 @@
 package fr.minuskube.editor.model;
 
+import fr.minuskube.editor.model.objects.SceneImage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 
 public class Scene {
 
@@ -9,8 +11,12 @@ public class Scene {
 
     public Scene() {
         for(int i = 0; i < 10; i++) {
-            Layer layer = new Layer();
-            layer.nameProperty().set("Layer " + i);
+            System.out.println("Load layer " + (i + 1));
+
+            SceneImage image = new SceneImage(new Image("http://via.placeholder.com/30x30"));
+
+            Layer layer = new Layer(image);
+            layer.nameProperty().set("Layer " + (i + 1));
 
             this.layers.add(layer);
         }

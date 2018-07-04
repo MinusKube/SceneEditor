@@ -10,6 +10,7 @@ public abstract class SceneObject {
 
     public abstract void update(float deltaTime);
     public abstract void render(GraphicsContext context);
+    public abstract void renderThumbnail(GraphicsContext context);
 
     public int getX() { return this.x; }
     public void setX(int x) { this.x = x; }

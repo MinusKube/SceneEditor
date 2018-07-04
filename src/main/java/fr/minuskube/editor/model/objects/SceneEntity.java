@@ -31,6 +31,11 @@ public class SceneEntity extends SceneObject {
 
     }
 
+    @Override
+    public void renderThumbnail(GraphicsContext context) {
+
+    }
+
     public ObservableMap<String, SceneAnimation> getAnimations() { return this.animations; }
 
 }

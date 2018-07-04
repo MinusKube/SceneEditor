@@ -19,15 +19,20 @@ public class SceneImage extends SceneObject {
     }
 
     @Override
-    public void update(float deltaTime) {
-
-    }
+    public void update(float deltaTime) {}
 
     @Override
     public void render(GraphicsContext context) {
+        context.drawImage(this.image.get(), this.x, this.y);
+    }
 
+    @Override
+    public void renderThumbnail(GraphicsContext context) {
+        context.drawImage(this.image.get(), 0, 0);
     }
 
     public ObjectProperty<Image> imageProperty() { return this.image; }
+    public Image getImage() { return this.image.get(); }
+    public void setImage(Image image) { this.image.set(image); }
 
 }

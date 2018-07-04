@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import fr.minuskube.editor.view.CanvasPane?>
 <?import fr.minuskube.editor.view.LayersPane?>
-<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <VBox xmlns="http://javafx.com/javafx"
@@ -44,10 +44,7 @@
 
             <VBox>
                 <SplitPane VBox.vgrow="ALWAYS" orientation="VERTICAL" dividerPositions="0.8">
-                    <Pane minHeight="300">
-                        <Canvas />
-                    </Pane>
-
+                    <CanvasPane minHeight="300" />
                     <ScrollPane minHeight="100" fitToWidth="true" fitToHeight="true" />
                 </SplitPane>
             </VBox>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import fr.minuskube.editor.view.SceneCanvas?>
+<SceneCanvas xmlns="http://javafx.com/javafx"
+             xmlns:fx="http://javafx.com/fxml"
+             fx:id="canvas"
+             fx:controller="fr.minuskube.editor.controller.CanvasController" />
