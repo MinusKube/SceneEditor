@@ -4,5 +4,5 @@
 <ListView xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:id="list"
-          fx:controller="fr.minuskube.editor.controller.LayersController"
+          fx:controller="fr.minuskube.editor.controller.layers.LayersController"
           stylesheets="@css/style.css" />

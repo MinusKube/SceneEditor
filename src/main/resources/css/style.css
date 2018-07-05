@@ -7,7 +7,7 @@
     -fx-effect: innershadow(gaussian, #88F, 5, 0.1, 0, 0);
 }
 
-.list-view, .split-pane {
+.list-view, .list-cell, .split-pane {
     -fx-padding: 0;
 }
 
@@ -25,10 +25,6 @@
 
 .menu .label {
     -fx-text-fill: #ccc;
-}
-
-.list-cell {
-    -fx-padding: 10px;
 }
 
 .list-cell:selected {
@@ -91,6 +87,10 @@
 }
 
 /******************** OTHER ********************/
+
+.layer {
+    -fx-padding: 10px;
+}
 
 .layer .label {
     -fx-text-fill: #ccc;

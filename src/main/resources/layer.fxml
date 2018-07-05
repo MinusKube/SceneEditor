@@ -7,7 +7,8 @@
 <?import javafx.scene.layout.HBox?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="fr.minuskube.editor.controller.LayerController"
+      fx:id="root"
+      fx:controller="fr.minuskube.editor.controller.layers.LayerController"
       stylesheets="@css/style.css"
       styleClass="layer"
       spacing="10" alignment="CENTER_LEFT">

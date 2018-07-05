@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
+<ContextMenu xmlns="http://javafx.com/javafx"
+             xmlns:fx="http://javafx.com/fxml"
+             fx:controller="fr.minuskube.editor.controller.layers.LayerContextController">
+
+    <items>
+        <MenuItem text="_Rename" onAction="#rename" />
+        <MenuItem text="_Delete" onAction="#delete" />
+    </items>
+
+</ContextMenu>

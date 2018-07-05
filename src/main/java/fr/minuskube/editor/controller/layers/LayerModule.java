@@ -1,4 +1,4 @@
-package fr.minuskube.editor.controller;
+package fr.minuskube.editor.controller.layers;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;

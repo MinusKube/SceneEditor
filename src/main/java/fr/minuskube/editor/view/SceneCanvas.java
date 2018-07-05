@@ -14,7 +14,7 @@ public class SceneCanvas extends Canvas {
 
             @Override
             public void handle(long now) {
-                float deltaTime = (now - this.lastFrame) / 1000000000f;
+                float deltaTime = (now - this.lastFrame) / 1_000_000_000f;
 
                 SceneCanvas.this.update(deltaTime);
                 SceneCanvas.this.render();

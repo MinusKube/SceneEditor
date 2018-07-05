@@ -10,10 +10,12 @@ public class Scene {
     private ObservableList<Layer> layers = FXCollections.observableArrayList();
 
     public Scene() {
+        Image placeholder = new Image("http://via.placeholder.com/30x30");
+
         for(int i = 0; i < 10; i++) {
             System.out.println("Load layer " + (i + 1));
 
-            SceneImage image = new SceneImage(new Image("http://via.placeholder.com/30x30"));
+            SceneImage image = new SceneImage(placeholder);
 
             Layer layer = new Layer(image);
             layer.nameProperty().set("Layer " + (i + 1));

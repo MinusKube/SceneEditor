@@ -1,4 +1,4 @@
-package fr.minuskube.editor.controller;
+package fr.minuskube.editor.controller.layers;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -38,12 +38,6 @@ public class LayersController implements Initializable {
         MultipleSelectionModel<HBox> selectionModel = this.list.getSelectionModel();
         selectionModel.setSelectionMode(SelectionMode.MULTIPLE);
 
-        this.updateListItems(this.scene.getLayers());
-
-        this.scene.getLayers().addListener((ListChangeListener<Layer>) change ->
-                this.updateListItems(change.getList())
-        );
-
         this.list.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
             if(event.getCode() != KeyCode.DELETE)
                 return;
@@ -53,6 +47,12 @@ public class LayersController implements Initializable {
                     .mapToInt(Integer::intValue)
                     .forEachOrdered(this.scene.getLayers()::remove);
         });
+
+        this.updateListItems(this.scene.getLayers());
+
+        this.scene.getLayers().addListener((ListChangeListener<Layer>) change ->
+                this.updateListItems(change.getList())
+        );
     }
 
     private void updateListItems(List<? extends Layer> layers) {
