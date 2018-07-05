@@ -116,7 +116,7 @@ public class LayerController implements Initializable {
         this.layers.requestFocus();
     }
 
-    private void showContextMenu(double x, double y) {
+    public void showContextMenu(double x, double y) {
         Injector contextInjector = this.injector.createChildInjector(new LayerContextModule(this));
 
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/layerContext.fxml"));
