@@ -6,9 +6,11 @@ import com.google.inject.name.Named;
 import fr.minuskube.editor.model.Layer;
 import fr.minuskube.editor.model.Scene;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.MultipleSelectionModel;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -16,7 +18,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -54,13 +55,6 @@ public class LayerController implements Initializable {
 
         this.field.setVisible(false);
         this.field.textProperty().bindBidirectional(layer.nameProperty());
-
-        this.root.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            if(event.getButton() != MouseButton.SECONDARY)
-                return;
-
-            this.showContextMenu(event.getScreenX(), event.getScreenY());
-        });
 
         this.layers.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
             if(selectionModel.getSelectedIndex() != this.index)
@@ -114,20 +108,6 @@ public class LayerController implements Initializable {
         this.label.setVisible(true);
 
         this.layers.requestFocus();
-    }
-
-    public void showContextMenu(double x, double y) {
-        Injector contextInjector = this.injector.createChildInjector(new LayerContextModule(this));
-
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/layerContext.fxml"));
-        loader.setControllerFactory(contextInjector::getInstance);
-
-        try {
-            ContextMenu menu = loader.load();
-            menu.show(this.root, x, y);
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
     }
 
 }

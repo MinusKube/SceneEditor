@@ -11,11 +11,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MultipleSelectionModel;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 import java.io.IOException;
@@ -46,17 +45,23 @@ public class LayersController implements Initializable {
                         .mapToInt(Integer::intValue)
                         .forEachOrdered(this.scene.getLayers()::remove);
             }
-            else if(event.getCode() == KeyCode.CONTEXT_MENU) {
-                HBox box = selectionModel.getSelectedItem();
+        });
 
-                Bounds bounds = box.getBoundsInLocal();
-                Bounds screenBounds = box.localToScreen(bounds);
+        this.list.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
+            if(event.isShiftDown())
+                return;
+            if(event.isControlDown())
+                return;
 
-                this.controllers.get(box).showContextMenu(
-                        screenBounds.getMinX() + screenBounds.getWidth() / 2,
-                        screenBounds.getMinY() + screenBounds.getHeight() / 2
-                );
-            }
+            HBox selected = selectionModel.getSelectedItem();
+
+            if(selected == null)
+                return;
+
+            Bounds bounds = selected.localToScene(selected.getBoundsInLocal());
+
+            if(!bounds.contains(event.getSceneX(), event.getSceneY()))
+                selectionModel.clearSelection();
         });
 
         this.updateListItems(this.scene.getLayers());
@@ -64,6 +69,36 @@ public class LayersController implements Initializable {
         this.scene.getLayers().addListener((ListChangeListener<Layer>) change ->
                 this.updateListItems(change.getList())
         );
+
+        this.list.setCellFactory(param -> {
+            ListCell<HBox> cell = new ListCell<>();
+            cell.graphicProperty().bind(cell.itemProperty());
+
+            cell.emptyProperty().addListener(((observable, oldValue, newValue) -> {
+                if(!newValue) {
+                    LayerContextModule module = new LayerContextModule(
+                            this.list, cell.getIndex(),
+                            this.controllers.get(cell.getItem())
+                    );
+
+                    Injector contextInjector = this.injector.createChildInjector(module);
+
+                    FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/layerContext.fxml"));
+                    loader.setControllerFactory(contextInjector::getInstance);
+
+                    try {
+                        ContextMenu contextMenu = loader.load();
+                        cell.setContextMenu(contextMenu);
+                    } catch(IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else
+                    cell.setContextMenu(null);
+            }));
+
+            return cell;
+        });
     }
 
     private void updateListItems(List<? extends Layer> layers) {

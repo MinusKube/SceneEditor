@@ -23,7 +23,7 @@
     -fx-background-color: #111;
 }
 
-.menu .label {
+.menu .label, .context-menu .label {
     -fx-text-fill: #ccc;
 }
 
